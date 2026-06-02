@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosmic Data Form</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+min-height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:30px;
+
+background:
+linear-gradient(
+180deg,
+#020111,
+#0b1026,
+#170035,
+#26004f
+);
+
+position:relative;
+}
+
+/* STAR FIELD */
+
+.stars{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+overflow:hidden;
+z-index:-1;
+}
+
+.star{
+position:absolute;
+background:white;
+border-radius:50%;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+
+0%,100%{
+opacity:.2;
+transform:scale(1);
+}
+
+50%{
+opacity:1;
+transform:scale(1.8);
+}
+
+}
+
+/* GLOW */
+
+.glow{
+position:absolute;
+width:400px;
+height:400px;
+background:#5a00ff;
+filter:blur(150px);
+opacity:.25;
+left:-120px;
+top:-120px;
+}
+
+.glow2{
+position:absolute;
+width:350px;
+height:350px;
+background:#00d9ff;
+filter:blur(150px);
+opacity:.2;
+right:-120px;
+bottom:-120px;
+}
+
+/* FORM */
+
+.container{
+
+width:100%;
+max-width:700px;
+
+background:
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+border:
+1px solid rgba(255,255,255,.15);
+
+border-radius:25px;
+
+padding:35px;
+
+box-shadow:
+0 0 30px rgba(0,255,255,.25),
+0 0 80px rgba(128,0,255,.25);
+
+}
+
+h1{
+text-align:center;
+color:white;
+margin-bottom:25px;
+text-shadow:0 0 20px cyan;
+}
+
+label{
+display:block;
+margin-top:15px;
+color:#d6e4ff;
+}
+
+input,textarea{
+
+width:100%;
+margin-top:8px;
+padding:14px;
+
+border:none;
+outline:none;
+
+border-radius:12px;
+
+background:
+rgba(255,255,255,.12);
+
+color:white;
+
+}
+
+button{
+
+width:100%;
+padding:15px;
+
+margin-top:20px;
+
+border:none;
+border-radius:15px;
+
+font-size:18px;
+font-weight:bold;
+
+cursor:pointer;
+
+background:
+linear-gradient(
+90deg,
+#00d4ff,
+#8a2be2
+);
+
+color:white;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:scale(1.03);
+
+box-shadow:
+0 0 25px cyan;
+
+}
+
+.done{
+
+display:none;
+
+margin-top:20px;
+
+text-align:center;
+
+font-size:24px;
+
+font-weight:bold;
+
+color:#8cffc7;
+
+text-shadow:
+0 0 15px #8cffc7;
+
+}
+
+.data-box{
+
+margin-top:25px;
+
+padding:20px;
+
+border-radius:15px;
+
+background:
+rgba(255,255,255,.08);
+
+color:white;
+
+}
+
+.item{
+margin:10px 0;
+padding:10px;
+border-radius:10px;
+background:
+rgba(255,255,255,.05);
+}
+
+/* COSMIC BURST */
+
+.cosmic-burst{
+
+position:fixed;
+
+left:50%;
+top:50%;
+
+font-size:30px;
+
+pointer-events:none;
+
+z-index:99999;
+
+animation:
+burst 2.8s ease-out forwards;
+
+}
+
+@keyframes burst{
+
+0%{
+transform:
+translate(-50%,-50%)
+translate(0,0)
+scale(0);
+
+opacity:1;
+}
+
+100%{
+
+transform:
+translate(-50%,-50%)
+translate(var(--x),var(--y))
+rotate(720deg)
+scale(1.7);
+
+opacity:0;
+
+}
+
+}
+
+/* THANK YOU */
+
+.thankyou{
+
+position:fixed;
+
+left:50%;
+top:50%;
+
+transform:
+translate(-50%,-50%);
+
+background:
+rgba(0,0,0,.55);
+
+backdrop-filter:blur(12px);
+
+padding:25px;
+
+border-radius:20px;
+
+text-align:center;
+
+color:white;
+
+font-size:28px;
+font-weight:bold;
+
+z-index:999999;
+
+animation:
+popup .5s ease,
+fadeout .8s ease 4s forwards;
+
+}
+
+@keyframes popup{
+
+from{
+opacity:0;
+transform:
+translate(-50%,-50%)
+scale(.5);
+}
+
+to{
+opacity:1;
+transform:
+translate(-50%,-50%)
+scale(1);
+}
+
+}
+
+@keyframes fadeout{
+to{
+opacity:0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="glow"></div>
+<div class="glow2"></div>
+
+<div class="container">
+
+<h1>🌌 forum aalitan 🌌</h1>
+
+<form id="formData">
+
+<label>saha maneh</label>
+<input id="nama" required>
+
+<label>Kelas baraha</label>
+<input id="kelas" required>
+
+<label>urang mana</label>
+<textarea id="alamat" rows="4" required></textarea>
+
+<button type="submit">
+🚀 asupken Datana
+</button>
+
+</form>
+
+<div class="done" id="done">
+✨ DONE! DATA BERHASIL DIKIRIM ✨
+</div>
+
+<div class="data-box">
+
+<h2>📋 Data Tersimpan</h2>
+
+<div class="item">
+<b>Nama:</b>
+<span id="lihatNama">-</span>
+</div>
+
+<div class="item">
+<b>kelas baraha:</b>
+<span id="lihatKelas">-</span>
+</div>
+
+<div class="item">
+<b>urang mana:</b>
+<span id="lihatAlamat">-</span>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* STAR FIELD */
+
+const stars =
+document.querySelector(".stars");
+
+for(let i=0;i<300;i++){
+
+const star =
+document.createElement("div");
+
+star.classList.add("star");
+
+let size =
+Math.random()*3;
+
+star.style.width =
+size+"px";
+
+star.style.height =
+size+"px";
+
+star.style.left =
+Math.random()*100+"%";
+
+star.style.top =
+Math.random()*100+"%";
+
+star.style.animationDelay =
+Math.random()*5+"s";
+
+stars.appendChild(star);
+
+}
+
+/* SUBMIT */
+
+document
+.getElementById("formData")
+.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const nama =
+document.getElementById("nama").value;
+
+const kelas =
+document.getElementById("kelas").value;
+
+const alamat =
+document.getElementById("alamat").value;
+
+document.getElementById("lihatNama").textContent=nama;
+document.getElementById("lihatKelas").textContent=kelas;
+document.getElementById("lihatAlamat").textContent=alamat;
+
+document.getElementById("done").style.display="block";
+
+setTimeout(()=>{
+document.getElementById("done").style.display="none";
+},3000);
+
+/* COSMIC EXPLOSION */
+
+const emojis=[
+"⭐","🌟","✨","💫",
+"🌙","🪐","☄️",
+"💙","🩵","💜",
+"🌌","🔮",
+"🦋","🌸","🪻",
+"🌺","❄️"
+];
+
+for(let i=0;i<120;i++){
+
+const sticker =
+document.createElement("div");
+
+sticker.className =
+"cosmic-burst";
+
+sticker.innerHTML =
+emojis[
+Math.floor(
+Math.random()*emojis.length
+)];
+
+const angle =
+Math.random()*Math.PI*2;
+
+const distance =
+150+
+Math.random()*500;
+
+sticker.style.setProperty(
+"--x",
+Math.cos(angle)*distance+"px"
+);
+
+sticker.style.setProperty(
+"--y",
+Math.sin(angle)*distance+"px"
+);
+
+document.body.appendChild(sticker);
+
+setTimeout(()=>{
+sticker.remove();
+},3000);
+
+}
+
+/* THANK YOU */
+
+const msg =
+document.createElement("div");
+
+msg.className =
+"thankyou";
+
+msg.innerHTML = `
+🌌✨🌙<br><br>
+Makasih udah isi forum hehereyan ini wkwk 😆💙<br>
+Semoga harimu secerah bintang-bintang galaksi,
+ikan hiu makan lontong,lopyu tapi boonk⭐✨<br><br>
+🪐🌸💫
+`;
+
+document.body.appendChild(msg);
+
+setTimeout(()=>{
+msg.remove();
+},5000);
+
+});
+
+</script>
+
+</body>
+</html>
